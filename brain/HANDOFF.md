@@ -1,7 +1,14 @@
 # HANDOFF — harness-market-ds
 
 ## State (2026-11-10)
-- Phase: P3 Specs complete, P4 Wiki in progress. Scaffold not yet created.
+- Phase: P11 Deploy partially complete. Site live on Cloudflare Workers/Pages.
+- Deployed URL: https://harness-market-ds.homgorn.workers.dev (HTTP 200, marker found).
+- Custom domain: harness-market-ds.refertur.net — pending DNS CNAME (owner action).
+- Specs: 00-QUIZ … 08-ACCEPTANCE complete.
+- Scaffold: Astro build passes; data/catalog.json present (5126 plugins).
+- Research: 4 topics complete.
+- GitHub: https://github.com/homgorn/harness-market-ds (public, topics set). Workflows removed from push (token lacks workflow scope) — re-add after `gh auth refresh -s workflow`.
+- Wiki: skeleton + indexes.
 - Specs: 00-QUIZ … 08-ACCEPTANCE written in `docs/specs/`.
 - Architecture: `docs/architecture/{overview,data-model,api}.md`.
 - Research: `brain/research/{catalogs,monetization,security,astro-templates}/` (4 topics, ~100 queries).
