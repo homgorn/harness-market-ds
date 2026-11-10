@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { plugins, getPlugin, slugOf } from '../../lib/catalog';
+
+export async function getStaticPaths() {
+  return plugins.map((p) => ({
+    params: { slug: slugOf(p) },
+    props: { plugin: p },
+  }));
+}
+
+const { plugin } = Astro.props;
+const slug = slugOf(plugin);
+const title = plugin.title?.en || plugin.name;
+const desc = (plugin.description?.en || '').slice(0, 160);
+const cat = plugin.metadata?.category;
+const version = plugin.versions?.[0]?.version;
+const repo = plugin.repository?.url;
+const home = plugin.homepage;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: title,
+  description: desc,
+  url: `https://harness-market-ds.refertur.net/p/${slug}/`,
+  applicationCategory: cat,
+  operatingSystem: 'DeepSeek Harness',
+  author: plugin.author ? { '@type': 'Person', name: plugin.author } : undefined,
+};
+---
+<BaseLayout title={title} description={desc} locale="en" jsonLd={jsonLd}>
+  <article>
+    <h1>{title}</h1>
+    <p style="color:var(--muted);">{plugin.description?.en}</p>
+    <div style="margin:1rem 0;display:flex;gap:1rem;flex-wrap:wrap;">
+      <span class="badge">Category: {cat}</span>
+      <span class="badge">Version: {version}</span>
+      <span class="badge">Security: unknown</span>
+    </div>
+    <h2>Install</h2>
+    <pre style="background:var(--card);padding:1rem;border-radius:8px;overflow:auto;"><code>dsh plugin --profile web add {plugin.name}</code></pre>
+    {home && <p><a href={home} target="_blank" rel="noopener">Homepage</a></p>}
+    {repo && <p><a href={repo} target="_blank" rel="noopener">Repository</a></p>}
+    <h2>Related</h2>
+    <p><em>Related plugins derived from knowledge graph (coming soon).</em></p>
+  </article>
+</BaseLayout>

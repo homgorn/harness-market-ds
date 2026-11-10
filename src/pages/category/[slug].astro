@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { allCategories, pluginsByCategory, slugOf } from '../../lib/catalog';
+
+export async function getStaticPaths() {
+  return allCategories().map((c) => ({
+    params: { slug: c.slug },
+    props: { category: c },
+  }));
+}
+
+const { category } = Astro.props;
+const list = pluginsByCategory(category.slug);
+---
+<BaseLayout title={category.title?.en || category.slug} description={`Plugins in ${category.title?.en || category.slug}.`}>
+  <h1>{category.title?.en || category.slug}</h1>
+  <p>{list.length} plugins</p>
+  <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));">
+    {list.slice(0, 60).map((p) => (
+      <article style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem;">
+        <h3><a href={`/p/${slugOf(p)}`}>{p.title?.en || p.name}</a></h3>
+        <p style="color:var(--muted);font-size:.9rem;">{(p.description?.en || '').slice(0, 120)}</p>
+      </article>
+    ))}
+  </div>
+  {list.length > 60 && <p>Showing first 60 of {list.length}.</p>}
+</BaseLayout>
