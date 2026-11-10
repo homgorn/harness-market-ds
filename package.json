@@ -1,0 +1,36 @@
+{
+  "name": "harness-market-ds",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Multilingual SEO-optimized catalog of DeepSeek Harness plugins",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "astro": "astro",
+    "sync": "node scripts/sync-catalog.mjs",
+    "scan": "node scripts/security-scan.mjs",
+    "gates": "node scripts/forge/gates.mjs --all"
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "@astrojs/sitemap": "^3.0.0",
+    "@astrojs/tailwind": "^6.0.0",
+    "tailwindcss": "^3.4.0",
+    "zod": "^3.23.0",
+    "better-sqlite3": "^11.0.0",
+    "pagefind": "^1.1.0",
+    "sharp": "^0.33.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.3.0",
+    "vitest": "^2.0.0",
+    "@playwright/test": "^1.47.0",
+    "axe-core": "^4.10.0"
+  }
+}

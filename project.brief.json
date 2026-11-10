@@ -1,0 +1,42 @@
+{
+  "idea": "Astro+Cloudflare catalog of DeepSeek Harness plugins (DSH), multilingual EN/RU/ZH/ES/DE/FR/JA, SEO+GEO+AEO, security scanning, daily CDN sync",
+  "name": "harness-market-ds",
+  "slug": "harness-market-ds",
+  "domain": "harness-market-ds.refertur.net",
+  "apex": "refertur.net",
+  "languages": [
+    "en",
+    "ru",
+    "zh",
+    "es",
+    "de",
+    "fr",
+    "ja"
+  ],
+  "primary_locale": "en",
+  "monetization": [
+    "ads_sponsorship",
+    "premium_plugins",
+    "donations_subscription",
+    "affiliate_links",
+    "api_data"
+  ],
+  "theme": "auto_system_toggle",
+  "security_mode": "scan_mark_rewrite",
+  "update_frequency": "daily",
+  "visibility": "public",
+  "repo": "homgorn/harness-market-ds",
+  "source_repo": "homgorn/dsh-market-deepseek-harness",
+  "cdn": "https://cdn.jsdelivr.net/npm/dsh-plugin-catalog/index.json",
+  "original": "https://dshmarket.com/",
+  "defaults_applied": [
+    "primary_locale en",
+    "languages 7 (en+6)",
+    "monetization all 5 selected",
+    "security scan+mark+rewrite",
+    "update daily cron",
+    "theme auto+toggle",
+    "visibility public"
+  ],
+  "open_questions": []
+}

@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How does search on AMO work? &mdash; addons-server  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/panzoom.min.js?v=00642a4e"></script>
+      <script src="../../_static/panzoom-graphviz.js?v=d94a264d"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Building Docs" href="docs.html" />
+    <link rel="prev" title="Static Files in addons-server" href="static-files.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            addons-server
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme_include.html">Security Bug Reports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">External API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup_and_configuration.html">Setup and Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_and_running_services.html">Building and Running Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="makefile_commands.html">Makefile Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing_and_quality_assurance.html">Testing and Quality Assurance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_management.html">Data Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dependency_management.html">Dependency Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance_and_optimization.html">Performance and Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localization_and_internationalization.html">Localization and Internationalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting_and_debugging.html">Troubleshooting and Debugging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="github_actions.html">Github Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error_pages.html">Error Pages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="style.html">Style Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="branching.html">Push From Master</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vpn.html">Using the VPN with docker on OSX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acl.html">Access Control Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="static-files.html">Static Files in addons-server</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">How does search on AMO work?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#high-level-overview">High-level overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rules">Rules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#scoring">Scoring</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#technical-overview">Technical overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#indexing">Indexing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flow-of-a-search-query-through-amo">Flow of a search query through AMO</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="docs.html">Building Docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waffle.html">Waffle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="remote_settings.html">Remote Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../README.html">Add-ons Server Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scanner_pipeline.html">Scanner Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../models/index.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logs.html">Logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../remote_addr.html">IP addresses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../third-party.html">Third-Party Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../blocklist.html">AMO Blocklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../environments.html">Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../runbooks/index.html">Runbooks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/v3_legacy/index.html">External API (V3 - Deprecated)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/v4_frozen/index.html">External API (V4 - Frozen)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../playground.html">Playground</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">addons-server</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Development</a></li>
+      <li class="breadcrumb-item active">How does search on AMO work?</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/topics/development/search.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="how-does-search-on-amo-work">
+<span id="amo-search-explainer"></span><h1>How does search on AMO work?<a class="headerlink" href="#how-does-search-on-amo-work" title="Link to this heading"></a></h1>
+<section id="high-level-overview">
+<h2>High-level overview<a class="headerlink" href="#high-level-overview" title="Link to this heading"></a></h2>
+<p>AMO add-ons are indexed in our Elasticsearch cluster. For each search query
+someone makes on AMO, we run a custom set of full-text queries against that
+cluster.</p>
+<p>Our autocomplete (that you can see when starting to type a few characters in
+the search field) uses the exact same implementation as a regular search
+underneath.</p>
+<section id="rules">
+<h3>Rules<a class="headerlink" href="#rules" title="Link to this heading"></a></h3>
+<p>For each search query, we apply a number of rules that attempt to find the
+search terms in each add-on name, summary and description. Each rule generates
+a score that depends on:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The frequency of the terms in the field we’re looking at</p></li>
+<li><p>The importance of each term in the overall index (the more common the term is across all add-ons, the less it impacts the score)</p></li>
+<li><p>The length of the field (shorter fields give a higher score as the search term is considered more relevant if they make up a larger part of the field)</p></li>
+</ul>
+</div></blockquote>
+<p>Each rule is also given a specific boost affecting its score, making matches
+against the add-on name more important and matches against the summary or
+description.</p>
+<p>Add-on names receive special treatment: Partial or misspelled matches are
+accepted to some extent while exact matches receive a significantly higher
+score.</p>
+</section>
+<section id="scoring">
+<h3>Scoring<a class="headerlink" href="#scoring" title="Link to this heading"></a></h3>
+<p>Each score for each rule is combined into a final score which we modify
+depending on the add-on popularity on a logarithm scale. “Recommended” and
+“By Firefox” add-ons get an additional, significant boost to their score.</p>
+<p>Finally, results are returned according to their score in descending order.</p>
+</section>
+</section>
+<section id="technical-overview">
+<h2>Technical overview<a class="headerlink" href="#technical-overview" title="Link to this heading"></a></h2>
+<p>We store two kinds of data in the <em>addons</em> index: indexed fields that are used for search purposes, and non-indexed fields that are meant to be returned (often as-is with no transformations) by the search API (allowing us to return search results data without hitting the database). The latter is not relevant to this document.</p>
+<p>Our search can be reached either via the API through <a class="reference internal" href="../api/addons.html#addon-search"><span class="std std-ref">/api/v5/addons/search/</span></a> or <a class="reference internal" href="../api/addons.html#addon-autocomplete"><span class="std std-ref">/api/v5/addons/autocomplete/</span></a> which are used by our frontend.</p>
+<section id="indexing">
+<h3>Indexing<a class="headerlink" href="#indexing" title="Link to this heading"></a></h3>
+<p>The key fields we search against are <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">summary</span></code> and <code class="docutils literal notranslate"><span class="pre">description</span></code>. Because all can be translated, we index them multiple times:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Once with the translation in the default locale of the add-on, under <code class="docutils literal notranslate"><span class="pre">{field}</span></code>, analyzed with just the <code class="docutils literal notranslate"><span class="pre">snowball</span></code> analyzer for <code class="docutils literal notranslate"><span class="pre">description</span></code> and <code class="docutils literal notranslate"><span class="pre">summary</span></code>, and a custom analyzer for <code class="docutils literal notranslate"><span class="pre">name</span></code> that applies the following filters: <code class="docutils literal notranslate"><span class="pre">standard</span></code>, <code class="docutils literal notranslate"><span class="pre">word_delimiter</span></code> (a custom version with <code class="docutils literal notranslate"><span class="pre">preserve_original</span></code> set to <code class="docutils literal notranslate"><span class="pre">true</span></code>), <code class="docutils literal notranslate"><span class="pre">lowercase</span></code>, <code class="docutils literal notranslate"><span class="pre">stop</span></code>, and <code class="docutils literal notranslate"><span class="pre">dictionary_decompounder</span></code> (with a specific word list) and <code class="docutils literal notranslate"><span class="pre">unique</span></code>.</p></li>
+<li><p>Once for every translation that exists for that field, using Elasticsearch language-specific analyzer if supported, under <code class="docutils literal notranslate"><span class="pre">{field}_l10n_{analyzer}</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>In addition, for the name, we also have:</strong></p>
+<ul class="simple">
+<li><p>For all fields described above also contains a subfield called <code class="docutils literal notranslate"><span class="pre">raw</span></code> that holds a non-analyzed variant for exact matches in the corresponding language (stored as a <code class="docutils literal notranslate"><span class="pre">keyword</span></code>, with a <code class="docutils literal notranslate"><span class="pre">lowercase</span></code> normalizer).</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">name.trigram</span></code> variant for the field in the default language, which is using a custom analyzer that depends on a <code class="docutils literal notranslate"><span class="pre">ngram</span></code> tokenizer (with <code class="docutils literal notranslate"><span class="pre">min_gram=3</span></code>, <code class="docutils literal notranslate"><span class="pre">max_gram=3</span></code> and <code class="docutils literal notranslate"><span class="pre">token_chars=[&quot;letter&quot;,</span> <span class="pre">&quot;digit&quot;]</span></code>).</p></li>
+</ul>
+</section>
+<section id="flow-of-a-search-query-through-amo">
+<h3>Flow of a search query through AMO<a class="headerlink" href="#flow-of-a-search-query-through-amo" title="Link to this heading"></a></h3>
+<p>Let’s assume we search on addons-frontend (not legacy) the search query hits the API and gets handled by <code class="docutils literal notranslate"><span class="pre">AddonSearchView</span></code>, which directly queries ElasticSearch and doesn’t involve the database at all.</p>
+<p>There are a few filters that are described in the <a class="reference internal" href="../api/addons.html#addon-search"><span class="std std-ref">/api/v5/addons/search/ docs</span></a> but most of them are not very relevant for text search queries. Examples are filters by guid, platform, category, add-on type or appversion (application version compatibility). Those filters are applied using a <code class="docutils literal notranslate"><span class="pre">filter</span></code> clause and shouldn’t affect scoring.</p>
+<p>Much more relevant for text searches (and this is primarily used when you use the search on the frontend) is <code class="docutils literal notranslate"><span class="pre">SearchQueryFilter</span></code>.</p>
+<p>It composes various rules to define a more or less usable ranking:</p>
+<section id="primary-rules">
+<h4>Primary rules<a class="headerlink" href="#primary-rules" title="Link to this heading"></a></h4>
+<p>These are the ones using the strongest boosts, so they are only applied to the add-on name.</p>
+<p><strong>Applied rules</strong> (merged via <code class="docutils literal notranslate"><span class="pre">should</span></code>):</p>
+<ol class="arabic simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">dis_max</span></code> query with <code class="docutils literal notranslate"><span class="pre">term</span></code> matches on <code class="docutils literal notranslate"><span class="pre">name_l10n_{analyzer}.raw</span></code> and <code class="docutils literal notranslate"><span class="pre">name.raw</span></code> if the language of the request matches a known language-specific analyzer, or just a <code class="docutils literal notranslate"><span class="pre">term</span></code> query on <code class="docutils literal notranslate"><span class="pre">name.raw</span></code> (<code class="docutils literal notranslate"><span class="pre">boost=100.0</span></code>) otherwise - our attempt to implement exact matches</p></li>
+<li><p>If we have a matching language-specific analyzer, we add a <code class="docutils literal notranslate"><span class="pre">match</span></code> query to <code class="docutils literal notranslate"><span class="pre">name_l10n_{analyzer}</span></code> (<code class="docutils literal notranslate"><span class="pre">boost=5.0</span></code>, <code class="docutils literal notranslate"><span class="pre">operator=and</span></code>)</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">phrase</span></code> match on <code class="docutils literal notranslate"><span class="pre">name</span></code> that allows swapped terms (<code class="docutils literal notranslate"><span class="pre">boost=8.0</span></code>, <code class="docutils literal notranslate"><span class="pre">slop=1</span></code>)</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">match</span></code> on <code class="docutils literal notranslate"><span class="pre">name</span></code>, using the standard text analyzer (<code class="docutils literal notranslate"><span class="pre">boost=6.0</span></code>, <code class="docutils literal notranslate"><span class="pre">analyzer=standard</span></code>, <code class="docutils literal notranslate"><span class="pre">operator=and</span></code>)</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">prefix</span></code> match on <code class="docutils literal notranslate"><span class="pre">name</span></code> (<code class="docutils literal notranslate"><span class="pre">boost=3.0</span></code>)</p></li>
+<li><p>If a query is &lt; 20 characters long, a <code class="docutils literal notranslate"><span class="pre">dis_max</span></code> query (<code class="docutils literal notranslate"><span class="pre">boost=4.0</span></code>) composed of a fuzzy match on <code class="docutils literal notranslate"><span class="pre">name</span></code> (<code class="docutils literal notranslate"><span class="pre">boost=4.0</span></code>, <code class="docutils literal notranslate"><span class="pre">prefix_length=2</span></code>, <code class="docutils literal notranslate"><span class="pre">fuzziness=AUTO</span></code>, <code class="docutils literal notranslate"><span class="pre">minimum_should_match=2&lt;2</span> <span class="pre">3&lt;-25%</span></code>) and a <code class="docutils literal notranslate"><span class="pre">match</span></code> query on <code class="docutils literal notranslate"><span class="pre">name.trigram</span></code>, with a <code class="docutils literal notranslate"><span class="pre">minimum_should_match=66%</span></code> to avoid noise</p></li>
+</ol>
+</section>
+<section id="secondary-rules">
+<h4>Secondary rules<a class="headerlink" href="#secondary-rules" title="Link to this heading"></a></h4>
+<p>These are the ones using the weakest boosts, they are applied to fields containing more text like description, summary and tags.</p>
+<p><strong>Applied rules</strong> (merged via <code class="docutils literal notranslate"><span class="pre">should</span></code>):</p>
+<ol class="arabic simple">
+<li><p>Look for matches inside the summary (<code class="docutils literal notranslate"><span class="pre">boost=3.0</span></code>, <code class="docutils literal notranslate"><span class="pre">operator=and</span></code>)</p></li>
+<li><p>Look for matches inside the description (<code class="docutils literal notranslate"><span class="pre">boost=2.0</span></code>, <code class="docutils literal notranslate"><span class="pre">operator=and</span></code>)</p></li>
+</ol>
+<p>If the language of the request matches a known language-specific analyzer, those are made using a <code class="docutils literal notranslate"><span class="pre">multi_match</span></code> query using <code class="docutils literal notranslate"><span class="pre">summary</span></code> or <code class="docutils literal notranslate"><span class="pre">description</span></code> and the corresponding <code class="docutils literal notranslate"><span class="pre">{field}_l10n_{analyzer}</span></code>, similar to how exact name matches are performed above, in order to support potential translations.</p>
+</section>
+<section id="id1">
+<h4>Scoring<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
+<p>We combine scores through a <code class="docutils literal notranslate"><span class="pre">function_score</span></code> query that multiplies the score by several factors:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A first multiplier is always applied through the <code class="docutils literal notranslate"><span class="pre">field_value_factor</span></code> function on <code class="docutils literal notranslate"><span class="pre">average_daily_users</span></code> with a <code class="docutils literal notranslate"><span class="pre">log2p</span></code> modifier</p></li>
+<li><p>An additional <code class="docutils literal notranslate"><span class="pre">4.0</span></code> weight is applied if the add-on is public &amp; non-experimental.</p></li>
+<li><p>Finally, <code class="docutils literal notranslate"><span class="pre">5.0</span></code> weight is applied to By Firefox and Recommended add-ons.</p></li>
+</ul>
+</div></blockquote>
+<p>On top of the two sets of rules above, a <code class="docutils literal notranslate"><span class="pre">rescore</span></code> query is applied with a <code class="docutils literal notranslate"><span class="pre">window_size</span></code> of <code class="docutils literal notranslate"><span class="pre">10</span></code>. In production, we have 5 shards, so that should re-adjust the score of the top 50 results returned only. The rules used for rescoring are the same used in the secondary rules above, with just one difference: it’s using <code class="docutils literal notranslate"><span class="pre">match_phrase</span></code> instead of <code class="docutils literal notranslate"><span class="pre">match</span></code>, with a slop of <code class="docutils literal notranslate"><span class="pre">10</span></code>.</p>
+</section>
+<section id="general-query-flow">
+<h4>General query flow<a class="headerlink" href="#general-query-flow" title="Link to this heading"></a></h4>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Fetch current translation</p></li>
+<li><p>Fetch locale specific analyzer (<a class="reference external" href="https://github.com/mozilla/addons-server/blob/f099b20fa0f27989009082c1f58da0f1d0a341a3/src/olympia/constants/search.py#L13-L52">List of analyzers</a>)</p></li>
+<li><p>Apply primary and secondary <em>should</em> rules</p></li>
+<li><p>Determine the score</p></li>
+<li><p>Rescore the top 10 results per shard</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="see-also">
+<h4>See also<a class="headerlink" href="#see-also" title="Link to this heading"></a></h4>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/mozilla/addons-server/blob/master/src/olympia/search/tests/test_search_ranking.py">addons-server search ranking tests</a></p></li>
+<li><p><a class="reference external" href="https://www.elastic.co/blog/practical-bm25-part-2-the-bm25-algorithm-and-its-variables">Elasticsearch relevancy algorithm</a></p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="static-files.html" class="btn btn-neutral float-left" title="Static Files in addons-server" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="docs.html" class="btn btn-neutral float-right" title="Building Docs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Mozilla.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

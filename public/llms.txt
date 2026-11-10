@@ -1,0 +1,13 @@
+# DSH Harness Plugin Catalog
+
+> Multilingual catalog of DeepSeek Harness (DSH) plugins. Browse, filter, search, and install plugins with security status.
+
+## Key pages
+- Home: https://harness-market-ds.refertur.net/
+- Categories: https://harness-market-ds.refertur.net/category
+- Security: https://harness-market-ds.refertur.net/security
+- Blog: https://harness-market-ds.refertur.net/blog
+
+## Data
+- Catalog JSON: https://harness-market-ds.refertur.net/data/catalog.json
+- Source: https://cdn.jsdelivr.net/npm/dsh-plugin-catalog/index.json

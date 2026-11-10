@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+let plugins = [];
+try {
+  const mod = await import('../../data/catalog.json');
+  plugins = (mod.default?.plugins || []).slice(0, 24);
+} catch (e) {
+  plugins = [];
+}
+const title = 'DSH Harness Plugin Catalog';
+const description = 'Browse, search and install DeepSeek Harness plugins. Multilingual, security-scanned, SEO-optimized catalog.';
+---
+<BaseLayout title={title} description={description} locale="en">
+  <h1>DeepSeek Harness Plugin Catalog</h1>
+  <p>Browse {plugins.length ? '5000+' : '0'} plugins. Filter by category, tag, security status.</p>
+  <div class="grid grid-cols-4" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));">
+    {plugins.map((p) => (
+      <article style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem;">
+        <h3><a href={`/p/${p.slug || p.name}`}>{p.title?.en || p.name}</a></h3>
+        <p style="color:var(--muted);font-size:.9rem;">{p.description?.en?.slice(0,120) || ''}</p>
+        <div style="font-size:.8rem;margin-top:.5rem;">
+          <span>{p.metadata?.category}</span> · <span>{p.versions?.[0]?.version}</span>
+        </div>
+      </article>
+    ))}
+  </div>
+  {plugins.length === 0 && <p>No plugins loaded yet. Run <code>npm run sync</code>.</p>}
+</BaseLayout>

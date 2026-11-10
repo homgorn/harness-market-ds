@@ -1,0 +1,33 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build
+dist/
+.astro/
+
+# env
+.env
+.env.local
+.env.*.local
+
+# snapshots / reports
+.snapshots/
+reports/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# temp
+.tmp/
+.cache/
+
+# IDE
+.vscode/
+.idea/
+
+# database
+*.db
+*.sqlite
