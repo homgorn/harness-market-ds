@@ -1,7 +1,8 @@
 # HANDOFF — harness-market-ds
 
 ## State (2026-11-10)
-- Phase: P11 Deploy partially complete. Site live on Cloudflare Workers/Pages.
+- Phase: Catalog pages implemented. Home, 5126 plugin detail pages, category pages built and deployed. Search UI (Pagefind) wired.
+- Deployed URL: https://harness-market-ds.homgorn.workers.dev (HTTP 200 verified).
 - Deployed URL: https://harness-market-ds.homgorn.workers.dev (HTTP 200, marker found).
 - Custom domain: harness-market-ds.refertur.net — pending DNS CNAME (owner action).
 - Specs: 00-QUIZ … 08-ACCEPTANCE complete.
