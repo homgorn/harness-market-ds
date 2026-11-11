@@ -1,0 +1,111 @@
+---
+import {
+  renderHome,
+  renderListing,
+  renderDetail,
+  renderSearch,
+  renderSecurity,
+  renderStaticPage,
+  renderListingIndex,
+} from '../lib/render.js';
+import { LOCALES, PER_PAGE, STATIC_PAGES, LISTING_TYPES } from '../lib/routes.js';
+import {
+  ITEMS,
+  bucketItems,
+  sortSlugs,
+  paginate,
+  getItem,
+  indexableTags,
+  indexableOwners,
+} from '../lib/catalog.js';
+
+/**
+ * Static generation of every route for every locale.
+ *
+ * The build is locale-scoped through BUILD_LOCALES (see astro.config.mjs) so a
+ * deployment stays under Cloudflare's 20,000-file cap on the Free plan while
+ * a Paid plan can ship all seven locales from one deployment.
+ */
+import localesConfig from '../locales.config.json';
+
+export async function getStaticPaths() {
+  const paths = [];
+
+  for (const locale of localesConfig.locales) {
+    const pre = locale === 'en' ? '' : `/${locale}`;
+    const at = (p) => (p ? `${pre}/${p}`.replace(/^\//, '') : undefined);
+
+    paths.push({ params: { path: at('') }, props: { locale, type: 'home' } });
+    for (const type of STATIC_PAGES) {
+      paths.push({ params: { path: at(type) }, props: { locale, type } });
+    }
+    paths.push({ params: { path: at('security') }, props: { locale, type: 'security' } });
+    paths.push({ params: { path: at('search') }, props: { locale, type: 'search' } });
+
+    // index pages for every listing dimension
+    for (const idx of ['category', 'tags', 'type', 'capability', 'author']) {
+      paths.push({ params: { path: at(idx) }, props: { locale, type: 'listing-index', value: idx } });
+    }
+
+    // listings with pagination
+    const valuesFor = {
+      category: () => [...new Set(ITEMS.map((i) => i.c))],
+      type: () => [...new Set(ITEMS.map((i) => i.k))],
+      tag: () => indexableTags,
+      capability: () => [...new Set(ITEMS.flatMap((i) => i.cp || []))],
+      author: () => indexableOwners,
+    };
+    for (const type of LISTING_TYPES) {
+      for (const value of valuesFor[type]()) {
+        const list = bucketItems(type, value);
+        const pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+        for (let p = 1; p <= pages; p++) {
+          paths.push({
+            params: { path: at(`${type}/${encodeURIComponent(value)}${p > 1 ? '/' + p : ''}`) },
+            props: { locale, type, value, page: p },
+          });
+        }
+      }
+    }
+
+    // detail pages
+    for (const it of ITEMS) {
+      paths.push({ params: { path: at(`p/${it.s}`) }, props: { locale, type: 'detail', slug: it.s } });
+    }
+  }
+  return paths;
+}
+
+const { locale, type, value, page = 1, slug } = Astro.props;
+
+let html = null;
+switch (type) {
+  case 'home':
+    html = renderHome(locale);
+    break;
+  case 'detail':
+    html = renderDetail({ locale, slug });
+    break;
+  case 'security':
+    html = renderSecurity(locale);
+    break;
+  case 'search':
+    html = renderSearch({ locale, q: '' });
+    break;
+  case 'category':
+  case 'tag':
+  case 'type':
+  case 'capability':
+  case 'author':
+    html = renderListing({ locale, type, value, page });
+    break;
+  case 'listing-index':
+    html = renderListingIndex({ locale, value });
+    break;
+  default:
+    html = renderStaticPage({ locale, type });
+}
+
+if (!html) html = renderStaticPage({ locale, type: 'about' });
+---
+<Fragment set:html={html} />

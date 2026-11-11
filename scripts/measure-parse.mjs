@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+const t0 = Date.now();
+const raw = fs.readFileSync('data/catalog.ssr.json', 'utf8');
+const t1 = Date.now();
+const obj = JSON.parse(raw);
+const t2 = Date.now();
+const mem = process.memoryUsage();
+console.log('read ms', t1 - t0, '| parse ms', t2 - t1, '| raw MB', (raw.length / 1048576).toFixed(2));
+console.log('heapUsed MB', (mem.heapUsed / 1048576).toFixed(1), '| rss MB', (mem.rss / 1048576).toFixed(1));
+console.log('items', obj.items.length);

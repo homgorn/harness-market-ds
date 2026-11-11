@@ -1,0 +1,14 @@
+# Smithery.ai MCP Servers - Raw Fetch
+URL: https://smithery.ai/servers
+Date: 2026-11-11
+
+[Smithery's MCP Proxy and managed identity shut down Oct 31, 2024 - redirect to Arcade]
+
+214 servers listed (Arcade-managed toolkits)
+All servers are `arcade/<service>` format:
+- airtable, apollo, asana, ashby, attio, brightdata, calendly, clickhouse, clickup, confluence, cursoragents, customerio, datadog, daytona, discordbot, dropbox, e2b, figma, firecrawl, fireflies, flyio, forkable, freshdesk, freshservice, github, glean, gmail, googlecalendar, googlecontacts, googledocs, googledrive, googleforms, googlefinance, googleflights, googlehotels, googlejobs, googlemaps, googlenews, googlesearch, googlesheets, googleshopping, googleslides, granola, hubspot, imgflip, insightly, jira, linear, linkedin, microsoftexcel, microsoftpowerbi, microsoftpowerpoint, microsoftsharepoint, microsoftteams, microsoftusers, microsoftword, mixpanel, mongodb, notion, microsoftonedrive, microsoftoutlookcalendar, microsoftoutlookmail, pagerduty, posthog, postgres, postman, pylon, reddit, resend, salesforce, servicenow, slack, snowflake, spotify, stripe, telegram, twilio, vercel, walmart, workday, x, yugabytedb, youtube, zendesk, zoom
+
+Plus community servers:
+- onesignal/onesignal, exa, upstash/context7-mcp, azmartone67/dchub, sidneybissoli/medical-terminologies-mcp, sidneybissoli/ibge-br-mcp, huggingface, Tavily, parallel/search, openzeppelin, microsoft/learn_mcp, nimistu/nimistu, sidneybissoli/senado-br-mcp-cloudflare, sidneybissoli/bcb-br-mcp, excalidraw, browserbase, aleksander/vastlint, brightdata, apify, Supabase, gondola/gondola-ai, infranodus/mcp-server-infranodus, sugra-systems/sugra-api, blockscout/mcp-server, hakeemwarner95/acrelens, martinhnymann/nordic-data-mcp, meacheal-ai/mrc-data, bugagent/bugagent-mcp, canvascloudai/cloud-world-model, airtable, nimble/nimble-mcp, planetscale, tldraw, attio, metaview, cloudinary, antvis/mcp-server-chart, happyscribe/happyscribe, hex, seatable/seatable-mcp, portio, sidneybissoli/sih-br-mcp, sanity, mailerlite, githits/GitHits, parallel/tasks, paypal, sidneybissoli/uis-mcp-server, thinair/geo, mapbox, launchdarkly, global-database, sophymarine/openregistry, finstat/finstatai, EduBase/MCP, mem, bitly, klaviyo, close, jam, airops, netlify, jotform, motherduck, commonroom, Databox-MCP/databox, jina, pubmed, bigquery, astro, deepwiki, vercel/grep, notion, svelte, aws-marketplace, clarityai, granted, clerk, gce, consensus, anthonypuggs/ausecon-mcp, telnyx, cortex, opentargets, cloudflare, cloudflare/workers-bindings, cloudflare/browser-rendering, sentry, post-pulse/mcp-server, calendly, ahrefs, postman, granola, clickhouse, cloudflare/workers-builds, clickup, buildkite, betterstack, PostHog, stripe
+
+Not a marketplace - Arcade SaaS platform; toolkits bundled with Arcade subscription

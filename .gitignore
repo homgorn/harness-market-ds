@@ -4,6 +4,7 @@ node_modules/
 
 # build
 dist/
+dist-locales/
 .astro/
 
 # env
@@ -32,8 +33,22 @@ Thumbs.db
 *.db
 *.sqlite
 
-# wrangler files
-.wrangler
-.dev.vars*
-!.dev.vars.example
-!.env.example
+# generated catalog data — reproducible via `npm run sync`
+# (see scripts/sync-catalog-v2.mjs → build-site-data → build-ssr-data)
+data/raw/
+data/snapshots/
+data/npm-cache/
+data/i18n-cache/
+data/awesome-plugins.json
+data/dshget-catalog.json
+data/catalog-v2.json
+data/catalog.ssr.json
+data/site.json
+data/buckets.json
+data/ranks.json
+data/related.json
+data/tags.json
+data/categories.json
+data/owners.json
+data/npm-meta.json
+data/security.json

@@ -1,13 +1,86 @@
-# DSH Harness Plugin Catalog
+# DSH Harness Ecosystem Catalog
 
-> Multilingual catalog of DeepSeek Harness (DSH) plugins. Browse, filter, search, and install plugins with security status.
+> Multilingual catalog of DeepSeek Harness (DSH) plugins and ecosystem artifacts: plugins, MCP servers, skills, themes, desktop apps, hosted services, bots and marketplaces. Filter by category, capability and security risk.
 
-## Key pages
-- Home: https://harness-market-ds.refertur.net/
-- Categories: https://harness-market-ds.refertur.net/category
-- Security: https://harness-market-ds.refertur.net/security
-- Blog: https://harness-market-ds.refertur.net/blog
+## Page types
+- Plugin / artifact detail: https://harness-market-ds.refertur.net/p/<slug>/
+- Category: https://harness-market-ds.refertur.net/category/<category>/
+- Type: https://harness-market-ds.refertur.net/type/<kind>/
+- Capability: https://harness-market-ds.refertur.net/capability/<capability>/
+- Security report: https://harness-market-ds.refertur.net/security/
+- Search: https://harness-market-ds.refertur.net/search/?q=<query>
+
+## Languages
+- en: https://harness-market-ds.refertur.net/
+- ru: https://harness-market-ds.refertur.net/ru/
+- zh: https://harness-market-ds.refertur.net/zh/
+- es: https://harness-market-ds.refertur.net/es/
+- de: https://harness-market-ds.refertur.net/de/
+- fr: https://harness-market-ds.refertur.net/fr/
+- ja: https://harness-market-ds.refertur.net/ja/
+
+## Most used artifacts
+- billion-context — https://harness-market-ds.refertur.net/p/billion-context/ (plugin, 3107130 downloads, 5790 stars)
+- dsh-market — https://harness-market-ds.refertur.net/p/dshmarket/ (plugin, 1140691 downloads, 10295 stars)
+- dsh-windows-mcp — https://harness-market-ds.refertur.net/p/dsh-windows-mcp/ (plugin, 742942 downloads, 132 stars)
+- dsh-pet#dsh-pet — https://harness-market-ds.refertur.net/p/dsh-pet/ (plugin, 519251 downloads, 5347 stars)
+- DeepSeek-Balance-Whale-Widget — https://harness-market-ds.refertur.net/p/dsh-whale-widget/ (plugin, 446389 downloads, 7093 stars)
+- dsh-context — https://harness-market-ds.refertur.net/p/dsh-context/ (plugin, 437485 downloads, 4797 stars)
+- DSH-better-sidebar — https://harness-market-ds.refertur.net/p/dsh-better-sidebar/ (plugin, 312867 downloads, 5036 stars)
+- modlens — https://harness-market-ds.refertur.net/p/liustack-modlens/ (plugin, 273840 downloads, 4725 stars)
+- dsh-ops — https://harness-market-ds.refertur.net/p/dsh-ops/ (plugin, 185458 downloads, 5074 stars)
+- dsh-web#packages/dsh-skill-explorer — https://harness-market-ds.refertur.net/p/linxin666-dsh-client-ui-skill-explorer/ (plugin, 156079 downloads, 9959 stars)
+- dsh-skills-manager — https://harness-market-ds.refertur.net/p/michengai-dsh-skills-manager/ (plugin, 153828 downloads, 444 stars)
+- dsh-wallpaper-engine — https://harness-market-ds.refertur.net/p/dsh-plugin-wallpaper-engine/ (plugin, 148739 downloads, 6210 stars)
+- dsh-cost-meter — https://harness-market-ds.refertur.net/p/dsh-cost-meter/ (plugin, 145887 downloads, 661 stars)
+- cc-safety-net — https://harness-market-ds.refertur.net/p/cc-safety-net/ (plugin, 139976 downloads, 1900 stars)
+- dsh-pet — https://harness-market-ds.refertur.net/p/linxin666-dsh-pet/ (plugin, 139908 downloads, 62 stars)
+- dsh-web#packages/dsh-task-board — https://harness-market-ds.refertur.net/p/linxin666-dsh-client-ui-task-board/ (plugin, 128053 downloads, 10290 stars)
+- dsh-im — https://harness-market-ds.refertur.net/p/xmanrui-dsh-im/ (plugin, 125834 downloads, 3118 stars)
+- hindsight#coding-agents — https://harness-market-ds.refertur.net/p/vectorize-io-hindsight-coding-agents/ (plugin, 113502 downloads, 60140 stars)
+- dsh-web#packages/dsh-ssh — https://harness-market-ds.refertur.net/p/linxin666-dsh-ssh/ (plugin, 111309 downloads, 9959 stars)
+- dsh-web#packages/dsh-git-graph — https://harness-market-ds.refertur.net/p/linxin666-dsh-client-ui-git-graph/ (plugin, 110851 downloads, 9959 stars)
+- dsh-mnemon — https://harness-market-ds.refertur.net/p/dsh-mnemon/ (plugin, 109194 downloads, 951 stars)
+- dsh-archive-manager — https://harness-market-ds.refertur.net/p/michengai-dsh-archive-manager/ (plugin, 109027 downloads, 325 stars)
+- dsh-web#packages/dsh-remote-web-ui — https://harness-market-ds.refertur.net/p/linxin666-dsh-remote-web-ui/ (plugin, 108413 downloads, 9959 stars)
+- dsh-genui — https://harness-market-ds.refertur.net/p/dsh-genui/ (plugin, 108100 downloads, 53 stars)
+- dsh-free-search — https://harness-market-ds.refertur.net/p/dsh-free-search/ (plugin, 106221 downloads, 817 stars)
+- dsh-web#packages/dsh-web-all — https://harness-market-ds.refertur.net/p/linxin666-dsh-web-all/ (plugin, 105181 downloads, 10290 stars)
+- dsh-connect-workbuddy — https://harness-market-ds.refertur.net/p/dsh-connect-workbuddy/ (plugin, 100986 downloads, 1386 stars)
+- dsh-session-superagent — https://harness-market-ds.refertur.net/p/dsh-session-superagent/ (plugin, 97762 downloads, 38 stars)
+- dsh-deep-whale#maid-atelier — https://harness-market-ds.refertur.net/p/smalltailqwq-dsh-client-ui-skin-maid-atelier/ (plugin, 96930 downloads, 3081 stars)
+- dsh-remote — https://harness-market-ds.refertur.net/p/dsh-remote/ (plugin, 92543 downloads, 264 stars)
+- dsh-onebot — https://harness-market-ds.refertur.net/p/dsh-onebot-qq/ (plugin, 86737 downloads, 10 stars)
+- dsh-codex-ui — https://harness-market-ds.refertur.net/p/michengai-dsh-codex-ui/ (plugin, 75689 downloads, 280 stars)
+- dsh-meme — https://harness-market-ds.refertur.net/p/dsh-meme/ (plugin, 74787 downloads, 488 stars)
+- dsh-image-gen — https://harness-market-ds.refertur.net/p/dsh-image-gen/ (plugin, 72947 downloads, 1075 stars)
+- dsh-TUI — https://harness-market-ds.refertur.net/p/deepseek-harness-tui-dsh-tui/ (plugin, 70529 downloads, 7336 stars)
+- modsearch — https://harness-market-ds.refertur.net/p/liustack-modsearch/ (plugin, 69466 downloads, 911 stars)
+- dsh-bili-scroll — https://harness-market-ds.refertur.net/p/dsh-bili-scroll/ (plugin, 68922 downloads, 1150 stars)
+- dsh-unlag — https://harness-market-ds.refertur.net/p/dsh-unlag/ (plugin, 68005 downloads, 45 stars)
+- dsh-agency-agents — https://harness-market-ds.refertur.net/p/michengai-dsh-agency-agents/ (plugin, 67694 downloads, 207 stars)
+- dsh-im-connect — https://harness-market-ds.refertur.net/p/michengai-dsh-im-connect/ (plugin, 67366 downloads, 118 stars)
+- dsh-genui — https://harness-market-ds.refertur.net/p/changfenhuang-dsh-genui/ (plugin, 65488 downloads, 954 stars)
+- dsh-vision-router — https://harness-market-ds.refertur.net/p/dsh-vision-router/ (plugin, 63523 downloads, 1211 stars)
+- dsh-mobile-plugin — https://harness-market-ds.refertur.net/p/dsh-mobile-plugin/ (plugin, 62756 downloads, 11 stars)
+- dsh-univer-office — https://harness-market-ds.refertur.net/p/dsh-univer-office/ (plugin, 61768 downloads, 657 stars)
+- dsh-agent-teams — https://harness-market-ds.refertur.net/p/nanmicoder-dsh-agent-teams/ (plugin, 61323 downloads, 2647 stars)
+- dsh-soul-md — https://harness-market-ds.refertur.net/p/dsh-soul-md/ (plugin, 51606 downloads, 38 stars)
+- BrowserSkill#dsh-plugin-browserskill — https://harness-market-ds.refertur.net/p/wxg-prc-cpg-browser-skill-dsh-plugin/ (plugin, 49645 downloads, 9929 stars)
+- dsh-dream-skin — https://harness-market-ds.refertur.net/p/dsh-dream-skin/ (plugin, 48400 downloads, 301 stars)
+- dsh-claude-style — https://harness-market-ds.refertur.net/p/dsh-claude-style/ (plugin, 46611 downloads, 542 stars)
+- archify#integrations/deepseek-harness — https://harness-market-ds.refertur.net/p/tt-a1i-archify-dsh/ (plugin, 46533 downloads, 92724 stars)
+- OpenViking#examples/dsh-memory-plugin — https://harness-market-ds.refertur.net/p/openviking-dsh-memory-plugin/ (plugin, 45681 downloads, 41884 stars)
+- dsh-automation — https://harness-market-ds.refertur.net/p/michengai-dsh-automation/ (plugin, 42273 downloads, 36 stars)
+- ds-harness-remote — https://harness-market-ds.refertur.net/p/ds-harness-remote/ (plugin, 41414 downloads, 1319 stars)
+- dsh-m — https://harness-market-ds.refertur.net/p/dsh-m/ (plugin, 41035 downloads, 31 stars)
+- dsh-video-skin — https://harness-market-ds.refertur.net/p/dsh-video-skin/ (plugin, 40846 downloads, 118 stars)
+- dsh-qqbot — https://harness-market-ds.refertur.net/p/zaofan-dsh-qqbot/ (plugin, 38463 downloads, 213 stars)
+- dsh-douyin-agent — https://harness-market-ds.refertur.net/p/dsh-douyin-browser-local/ (plugin, 38418 downloads, 52 stars)
+- dsh-rewind — https://harness-market-ds.refertur.net/p/dsh-rewind-plugin/ (plugin, 37873 downloads, 248 stars)
+- dsh-browser — https://harness-market-ds.refertur.net/p/dsh-builtin-browser/ (plugin, 36358 downloads, 162 stars)
+- dsh-codex-subscription — https://harness-market-ds.refertur.net/p/dsh-codex-subscription/ (plugin, 36285 downloads, 419 stars)
 
 ## Data
 - Catalog JSON: https://harness-market-ds.refertur.net/data/catalog.json
-- Source: https://cdn.jsdelivr.net/npm/dsh-plugin-catalog/index.json
+- Sources: https://awesome-dsh-plugin.com/plugins.json and https://cdn.jsdelivr.net/npm/dsh-plugin-catalog/index.json
