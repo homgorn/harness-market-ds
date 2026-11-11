@@ -1,0 +1,17 @@
+/* humans — https://humans.txt */
+
+/* TEAM */
+Name: DSH Harness Ecosystem Catalog
+Site: https://harness-market-ds.refertur.net
+Source: https://github.com/homgorn/harness-market-ds
+Stack: Astro + Cloudflare Pages/Workers, static per-locale builds, Pagefind-free client-side search
+Languages: EN (primary), RU, ZH, ES, DE, FR, JA
+
+/* SOURCES */
+Awesome DSH Plugin: https://awesome-dsh-plugin.com
+DSH plugin index: https://cdn.jsdelivr.net/npm/dsh-plugin-catalog/index.json
+OSV advisories: https://api.osv.dev
+npm registry: https://registry.npmjs.org
+
+/* THANKS */
+The DeepSeek Harness team, the awesome-dsh-plugin registry maintainers, and the 10,000+ community plugin authors indexed here.

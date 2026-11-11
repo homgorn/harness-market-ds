@@ -19,7 +19,7 @@ export const LOCALES = ['en', 'ru', 'zh', 'es', 'de', 'fr', 'ja'];
 
 export const LISTING_TYPES = ['category', 'tag', 'type', 'capability', 'author'];
 
-export const STATIC_PAGES = ['about', 'privacy', 'terms', 'cookies', 'blog', 'changelog'];
+export const STATIC_PAGES = ['about', 'privacy', 'terms', 'cookies', 'blog', 'changelog', 'faq', 'docs'];
 
 /**
  * @param {string} pathname

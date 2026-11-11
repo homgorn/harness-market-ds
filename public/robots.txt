@@ -1,4 +1,36 @@
 User-agent: *
 Allow: /
 
+# Preview/fetchers welcome; no crawl traps in this static catalog.
 Sitemap: https://harness-market-ds.refertur.net/sitemap-index.xml
+
+# AI answer engines explicitly welcome (we want to be cited)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /

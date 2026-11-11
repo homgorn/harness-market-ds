@@ -279,6 +279,8 @@ ${jsonld}
         <div class="drop">
           <a href="${pre}/blog/">${esc(t(locale, 'blog'))}</a>
           <a href="${pre}/changelog/">Changelog</a>
+          <a href="${pre}/faq/">FAQ</a>
+          <a href="${pre}/docs/">Docs</a>
           <a href="${pre}/docs/">Docs</a>
         </div>
       </div>
@@ -350,6 +352,8 @@ ${o.body || ''}
           <li><a href="${pre}/about/">${esc(t(locale, 'about'))}</a></li>
           <li><a href="${pre}/blog/">${esc(t(locale, 'blog'))}</a></li>
           <li><a href="${pre}/changelog/">Changelog</a></li>
+          <li><a href="${pre}/faq/">FAQ</a></li>
+          <li><a href="${pre}/docs/">Docs</a></li>
           <li><a href="${pre}/security/">${esc(t(locale, 'security'))}</a></li>
           <li><a href="${pre}/privacy/">Privacy</a></li>
           <li><a href="${pre}/terms/">Terms</a></li>

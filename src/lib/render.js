@@ -144,20 +144,23 @@ export function renderListing({ locale, type, value, page = 1, query = {} }) {
 ${listingBody({ locale, items: pg.items, page: pg.page, pages: pg.pages, total: pg.total, basePath, query })}
 <details><summary>${esc(t(locale, 'filters'))}</summary>${facetsBody({ locale })}</details>`;
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: title,
-    description: `${pg.total} DeepSeek Harness artifacts in ${type} "${value}".`,
-    url: SITE + path,
-    breadcrumb: {
+  const jsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: title,
+      description: `${pg.total} DeepSeek Harness artifacts in ${type} "${value}".`,
+      url: SITE + path,
+    },
+    {
+      '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + pre + '/' },
         { '@type': 'ListItem', position: 2, name: title, item: SITE + path },
       ],
     },
-  };
+  ];
 
   return render({
     locale,
@@ -250,16 +253,20 @@ export function renderDetail({ locale, slug }) {
   const title = `${item.n} — DSH ${item.k}`;
   let description = (text || '').slice(0, 155);
   if (description.length < 120) description = `${description} Artifact for DeepSeek Harness (DSH).`.slice(0, 160);
-  const jsonLd = pluginJsonLd(item, locale, SITE + path);
-  jsonLd.additionalType = 'https://schema.org/SoftwareApplication';
-  jsonLd.breadcrumb = {
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + prefix(locale) + '/' },
-      { '@type': 'ListItem', position: 2, name: catTitle(item.c, 'en'), item: SITE + prefix(locale) + `/category/${item.c}/` },
-      { '@type': 'ListItem', position: 3, name: item.n, item: SITE + path },
-    ],
-  };
+  const appSchema = pluginJsonLd(item, locale, SITE + path);
+  appSchema.additionalType = 'https://schema.org/SoftwareApplication';
+  const jsonLd = [
+    appSchema,
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + prefix(locale) + '/' },
+        { '@type': 'ListItem', position: 2, name: catTitle(item.c, 'en'), item: SITE + prefix(locale) + `/category/${item.c}/` },
+        { '@type': 'ListItem', position: 3, name: item.n, item: SITE + path },
+      ],
+    },
+  ];
   return render({
     locale,
     title: title.slice(0, 60),
@@ -390,6 +397,58 @@ const STATIC_CONTENT = {
 <h2>2026-11-10 — First deploy</h2>
 <ul><li>Site scaffolded, catalog list and detail pages published.</li></ul>`,
   },
+
+  faq: {
+    title: 'Frequently asked questions — DSH Harness Catalog',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        { '@type': 'Question', name: 'What is DSH Harness?', acceptedAnswer: { '@type': 'Answer', text: 'DeepSeek Harness is an agent harness: an open-source runtime you install with dsh and extend with plugins.' } },
+        { '@type': 'Question', name: 'How do I install a plugin?', acceptedAnswer: { '@type': 'Answer', text: 'Run: dsh plugin --profile web add <author>/<name>. The catalog shows the exact command on every plugin page.' } },
+        { '@type': 'Question', name: 'Are the plugins safe?', acceptedAnswer: { '@type': 'Answer', text: 'Every plugin is scanned with Semgrep, npm audit and custom YARA rules, and cross-checked against capability red lines from the upstream registry and OSV advisories. Status is shown on each page as risk: none, low, medium or high.' } },
+        { '@type': 'Question', name: 'What does the risk level mean?', acceptedAnswer: { '@type': 'Answer', text: 'high = reads credentials or secrets and has network access, or runs code at install time (postinstall). medium = plaintext HTTP or literal-IP egress. low = other red lines. none = no red lines detected.' } },
+        { '@type': 'Question', name: 'Are descriptions translated?', acceptedAnswer: { '@type': 'Answer', text: 'UI is translated into 7 languages. Plugin descriptions are published in English and Chinese; in other languages they are machine-translated and labelled as such.' } },
+        { '@type': 'Question', name: 'Where does the data come from?', acceptedAnswer: { '@type': 'Answer', text: 'Merged from awesome-dsh-plugin.com/plugins.json (10,365 artifacts) with the DSH format-1 index (5,126 plugins), enriched with npm registry metadata and OSV advisories.' } },
+        { '@type': 'Question', name: 'Can I report a malicious plugin?', acceptedAnswer: { '@type': 'Answer', text: 'Yes — open a security report through the SECURITY.md policy in the repository. We mark the plugin malicious, remove its code, and rewrite it as a safe plugin where feasible.' } },
+        { '@type': 'Question', name: 'Does the catalog cost money?', acceptedAnswer: { '@type': 'Answer', text: 'No. The catalog is free. Premium ebooks, spec packs and PDF bundles, built from original work, will be sold via Lemon Squeezy — see the about page.' } },
+      ],
+    },
+    body: (locale) => `<h1>Frequently asked questions</h1>
+<h2>What is DSH Harness?</h2>
+<p class="lead">DeepSeek Harness (DSH) is an agent harness — an open-source, extensible runtime installed with <code>dsh</code>. Its plugin ecosystem is what this catalog indexes.</p>
+<h2>How do I install a plugin?</h2>
+<pre><code>dsh plugin --profile web add &lt;name&gt;</code></pre>
+<p>Replace the profile with yours if not <code>web</code>. Every plugin page shows the exact command.</p>
+<h2>Are the plugins safe?</h2>
+<p>All plugins are statically scanned (Semgrep, npm audit, YARA) and checked against upstream capability red lines and OSV advisories. Nothing is executed on this site — it holds metadata only.</p>
+<h2>What do the risk levels mean?</h2>
+<ul><li><strong>High</strong> — reads credentials/secrets + network, or postinstall code execution.</li><li><strong>Medium</strong> — plaintext HTTP / literal-IP egress.</li><li><strong>Low</strong> — other upstream red lines.</li><li><strong>None</strong> — no red lines.</li></ul>
+<h2>Where does the data come from?</h2>
+<ul><li>awesome-dsh-plugin.com/plugins.json — community registry (stars, downloads, capabilities, red lines)</li><li>dsh-plugin-catalog index.json — the format-1 index used by DSH Discover</li><li>npm registry — keywords, licenses, maintainers</li><li>OSV.dev — published vulnerability advisories</li></ul>
+<h2>Are descriptions translated?</h2>
+<p>Interface into 7 languages. Descriptions are EN and ZH upstream; other languages are machine-translated and labelled as such.</p>
+<h2>How do I report a malicious plugin?</h2>
+<p>Use the security procedure in <a href="https://github.com/homgorn/harness-market-ds/blob/main/SECURITY.md" rel="noopener nofollow">SECURITY.md</a>. We mark it, remove the code, and rewrite it safely where possible.</p>
+<h2>Is it free?</h2>
+<p>Yes. The catalog is free; premium original products arrive later via Lemon Squeezy.</p>`,
+  },
+  docs: {
+    title: 'Docs — using the DSH catalog',
+    jsonLd: null,
+    body: (locale) => `<h1>Docs</h1>
+<p class="lead">How to find, vet and install DSH plugins and artifacts.</p>
+<h2>1. Search</h2>
+<p>Use the search page (type-ahead, client-side). Filter by category, tag, capability or type.</p>
+<h2>2. Vet</h2>
+<p>Open the plugin page. Check stars, downloads, license, and the security risk pill. Red lines are listed under “Security risk”.</p>
+<h2>3. Install</h2>
+<pre><code>dsh plugin --profile web add &lt;name&gt;</code></pre>
+<h2>4. Keep it updated</h2>
+<p>Compare the version shown on the page with the latest on npm, and re-run the install command.</p>
+<h2>5. What's indexed</h2>
+<p>Plugins, MCP servers, skills, themes, presets, desktop apps, bots, hosted services, marketplaces and documentation sites — not only plugins.</p>`,
+  },
   changelog: {
     title: 'Changelog',
     body: () => `<h1>Changelog</h1>
@@ -407,6 +466,7 @@ export function renderStaticPage({ locale, type }) {
     description: `${def.title} — the DSH Harness ecosystem catalog.`,
     path: `${pre}/${type}/`,
     body: def.body(locale),
+    jsonLd: def.jsonLd || undefined,
   });
 }
 
