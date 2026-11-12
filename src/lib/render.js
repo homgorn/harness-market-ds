@@ -91,8 +91,8 @@ export function renderHome(locale) {
 
   return render({
     locale,
-    title: `DSH Harness Plugin Catalog — ${PLUGINS.length} plugins & ecosystem artifacts`,
-    description: `Browse ${PLUGINS.length} DeepSeek Harness plugins plus desktop apps, hosted services, bots and marketplaces. Filter by category, capability and security risk. Multilingual, SEO-optimized.`,
+    title: `DSH Harness Ecosystem Catalog — ${PLUGINS.length} plugins & artifacts`,
+    description: `Browse ${PLUGINS.length} DeepSeek Harness plugins and ecosystem artifacts: desktop apps, services, bots. Filter by type, category, capability, security. Free to use.`,
     path: '/',
     keywords: 'deepseek harness, dsh plugins, plugin catalog, dsh marketplace',
     body,
@@ -250,9 +250,11 @@ export function renderDetail({ locale, slug }) {
   const body = detailBody({ locale, item, related });
   const path = `${prefix(locale)}/p/${item.s}/`;
   const { text } = descFor(item, locale);
-  const title = `${item.n} — DSH ${item.k}`;
+  const title = `${item.n.slice(0, 46)} — DSH ${item.k}`;
   let description = (text || '').slice(0, 155);
-  if (description.length < 120) description = `${description} Artifact for DeepSeek Harness (DSH).`.slice(0, 160);
+  if (description.length < 120) {
+    description = `${item.n}: DeepSeek Harness ${item.k} artifact. Open-source DSH ecosystem project, security-scanned, installable via dsh plugin add.`.slice(0, 158);
+  }
   const appSchema = pluginJsonLd(item, locale, SITE + path);
   appSchema.additionalType = 'https://schema.org/SoftwareApplication';
   const jsonLd = [
@@ -450,7 +452,7 @@ const STATIC_CONTENT = {
 <p>Plugins, MCP servers, skills, themes, presets, desktop apps, bots, hosted services, marketplaces and documentation sites — not only plugins.</p>`,
   },
   changelog: {
-    title: 'Changelog',
+    title: 'Changelog — DSH Catalog',
     body: () => `<h1>Changelog</h1>
 <p>See the <a href="/blog/">news page</a> for the full history.</p>`,
   },
@@ -460,13 +462,19 @@ export function renderStaticPage({ locale, type }) {
   const pre = prefix(locale);
   const def = STATIC_CONTENT[type];
   if (!def) return null;
+  const pageJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: def.title,
+    url: SITE + `${prefix(locale)}/${type}/`,
+  };
   return render({
     locale,
-    title: def.title,
-    description: `${def.title} — the DSH Harness ecosystem catalog.`,
+    title: def.title.length > 60 ? def.title.slice(0, 57) + '…' : def.title,
+    description: `${def.title} for the DeepSeek Harness (DSH) ecosystem: plugins, desktop apps, services and bots, security-scanned and always fresh.`,
     path: `${pre}/${type}/`,
     body: def.body(locale),
-    jsonLd: def.jsonLd || undefined,
+    jsonLd: def.jsonLd ? [def.jsonLd, pageJsonLd] : pageJsonLd,
   });
 }
 

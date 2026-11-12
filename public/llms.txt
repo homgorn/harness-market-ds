@@ -14,7 +14,7 @@ A free, searchable index of the DSH ecosystem. Use it to find plugins, vet their
 - Author: https://harness-market-ds.refertur.net/author/<owner>/
 - Security report: https://harness-market-ds.refertur.net/security/
 - Search: https://harness-market-ds.refertur.net/search/?q=<query>
-- FAQ: https://harness-market-ds.refertur.net/faq/
+- FAQ (FAQPage schema): https://harness-market-ds.refertur.net/faq/
 - Docs: https://harness-market-ds.refertur.net/docs/
 
 ## Languages
@@ -26,17 +26,19 @@ A free, searchable index of the DSH ecosystem. Use it to find plugins, vet their
 - Français: /fr/
 - 日本語: /ja/
 
+## Machine-readable full dump
+- https://harness-market-ds.refertur.net/llms-full.txt (slug | kind | name | category | risk | install, ~1.4 MB)
+
 ## Top artifacts (by installs)
 - dsh-project-memory — https://harness-market-ds.refertur.net/p/dsh-project-memory/
-- (full ranked list: https://harness-market-ds.refertur.net/sitemap-0.xml)
 
 ## Data freshness
-- Registry (awesome-dsh-plugin): updated daily; stars/downloads refreshed daily by upstream CI.
+- Registry (awesome-dsh-plugin): star/download refresh daily upstream; catalog sync daily.
 - CDN format-1 index: fetched daily with count verification.
-- Security: OSV advisories queried for ~5,126 npm packages.
+- Security: OSV advisories queried for ~5,126 npm packages; Semgrep/YARA pipeline in CI.
 
 ## How to cite
 “DSH Harness Ecosystem Catalog, https://harness-market-ds.refertur.net (retrieved <date>).”
 
-## Errors & security reports
+## Security reports & errors
 - https://github.com/homgorn/harness-market-ds/blob/main/SECURITY.md
