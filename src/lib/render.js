@@ -149,7 +149,7 @@ ${listingBody({ locale, items: pg.items, page: pg.page, pages: pg.pages, total: 
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
     title: `${title.slice(0, 46)} - DSH Catalog`.slice(0, 60),
-    description: `Browse ${pg.total} DeepSeek Harness ${type} artifacts for "${value.slice(0, 40)}". Filter by category, capability, risk. Updated daily.`,
+    description: `Browse ${pg.total} DeepSeek Harness ${type} artifacts for "${value.slice(0, 40)}". Filter by category, capability, risk. Updated daily from the community registry.`.slice(0, 158),
       url: SITE + path,
     },
     {
@@ -165,7 +165,7 @@ ${listingBody({ locale, items: pg.items, page: pg.page, pages: pg.pages, total: 
   return render({
     locale,
     title: `${title.slice(0, 46)} - DSH Catalog`.slice(0, 60),
-    description: `Browse ${pg.total} DeepSeek Harness ${type} artifacts for "${value.slice(0, 40)}". Filter by category, capability, risk. Updated daily.`,
+    description: `Browse ${pg.total} DeepSeek Harness ${type} artifacts for "${value.slice(0, 40)}". Filter by category, capability, risk. Updated daily from the community registry.`.slice(0, 158),
     path,
     keywords: `dsh ${value}, deepseek harness ${type}`,
     body,
@@ -379,7 +379,7 @@ const STATIC_CONTENT = {
 <p>Plugin pages link to GitHub, npm and author websites. Following such a link places you under that site's privacy policy.</p>`,
   },
   terms: {
-    title: 'Terms of use',
+    title: 'Terms of use page',
     body: (locale) => `<h1>Terms</h1>
 <h2>Scope</h2>
 <p>This site indexes third-party artifacts. Listing is not endorsement: plugins are community code and are installed at your own risk.</p>
