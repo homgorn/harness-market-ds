@@ -149,7 +149,7 @@ ${listingBody({ locale, items: pg.items, page: pg.page, pages: pg.pages, total: 
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
     title: `${title.slice(0, 46)} - DSH Catalog`.slice(0, 60),
-    description: `Browse ${pg.total} DeepSeek Harness ${type} artifacts for "${value}". Filter by capability, category and security risk. Updated daily from the community registry.`,
+    description: `Browse ${pg.total} DeepSeek Harness ${type} artifacts for "${value.slice(0, 40)}". Filter by category, capability, risk. Updated daily.`,
       url: SITE + path,
     },
     {
@@ -165,7 +165,7 @@ ${listingBody({ locale, items: pg.items, page: pg.page, pages: pg.pages, total: 
   return render({
     locale,
     title: `${title.slice(0, 46)} - DSH Catalog`.slice(0, 60),
-    description: `Browse ${pg.total} DeepSeek Harness ${type} artifacts for "${value}". Filter by capability, category and security risk. Updated daily from the community registry.`,
+    description: `Browse ${pg.total} DeepSeek Harness ${type} artifacts for "${value.slice(0, 40)}". Filter by category, capability, risk. Updated daily.`,
     path,
     keywords: `dsh ${value}, deepseek harness ${type}`,
     body,
@@ -368,7 +368,7 @@ const STATIC_CONTENT = {
 <p>Interface strings are translated into ${LOCALES.length} languages. Plugin descriptions are published in English and Chinese; in other languages the description is machine-translated and labelled as such.</p>`,
   },
   privacy: {
-    title: 'Privacy policy',
+    title: 'Privacy policy page',
     body: () => `<h1>Privacy</h1>
 <p class="lead">This catalog is a static-content site. It does not require accounts and does not set advertising cookies.</p>
 <h2>What is collected</h2>
