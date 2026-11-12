@@ -32,8 +32,14 @@ for (const [kind, list] of Object.entries(groups)) {
   for (const f of list) {
     const html = fs.readFileSync(f, 'utf8');
     checked++;
-    const title = (html.match(/<title>([^<]*)<\/title>/) || [])[1] || '';
-    const desc = (html.match(/<meta name="description" content="([^"]*)"/) || [])[1] || '';
+    const decode = (x) => String(x || '')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&gt;/g, '>')
+      .replace(/&lt;/g, '<')
+      .replace(/&amp;/g, '&');
+    const title = decode((html.match(/<title>([^<]*)<\/title>/) || [])[1] || '');
+    const desc = decode((html.match(/<meta name="description" content="([^"]*)"/) || [])[1] || '');
     const checks = [
       ['title missing', !!title],
       ['title > 60', title.length <= 60],

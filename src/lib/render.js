@@ -148,8 +148,8 @@ ${listingBody({ locale, items: pg.items, page: pg.page, pages: pg.pages, total: 
     {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-      name: title,
-      description: `${pg.total} DeepSeek Harness artifacts in ${type} "${value}".`,
+    title: `${title.slice(0, 46)} - DSH Catalog`.slice(0, 60),
+    description: `Browse ${pg.total} DeepSeek Harness ${type} artifacts for "${value}". Filter by capability, category and security risk. Updated daily from the community registry.`,
       url: SITE + path,
     },
     {
@@ -164,8 +164,8 @@ ${listingBody({ locale, items: pg.items, page: pg.page, pages: pg.pages, total: 
 
   return render({
     locale,
-    title: `${title} — DSH Harness Catalog`.slice(0, 60),
-    description: `${pg.total} DeepSeek Harness artifacts in ${type} "${value}". Filter by capability and security risk.`,
+    title: `${title.slice(0, 46)} - DSH Catalog`.slice(0, 60),
+    description: `Browse ${pg.total} DeepSeek Harness ${type} artifacts for "${value}". Filter by capability, category and security risk. Updated daily from the community registry.`,
     path,
     keywords: `dsh ${value}, deepseek harness ${type}`,
     body,
@@ -197,7 +197,8 @@ export function renderListingIndex({ locale, value }) {
     tags: `Browse plugins by ${tags.length} tags derived from npm keywords and plugin capabilities.`,
     type: 'DeepSeek Harness plugins, MCP servers, skills, themes, presets, desktop apps, bots, hosted services, marketplaces and sites.',
     capability: 'Browse plugins by the capabilities they declare: filesystem, shell, network, credentials and more.',
-    author: 'Browse DeepSeek Harness plugins by author.',
+    author: 'Browse more than 1,600 DeepSeek Harness plugin authors with at least 2 plugins each, sorted by popularity and updated daily.',
+    category: 'Browse all DeepSeek Harness plugins grouped into 23 categories, sorted by popularity and updated daily from the community registry.',
   };
   const description = descs[value] || '';
 
@@ -338,6 +339,12 @@ ${withAdvisory.length ? `<h3>${esc(t(locale, 'advTitle'))}</h3><div class="grid"
     description: `Security status of ${PLUGINS.length} DeepSeek Harness plugins: risk levels, capability red lines and published vulnerability advisories.`,
     path: `${pre}/security/`,
     body,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'Security report — DSH plugin catalog',
+      url: SITE + `${pre}/security/`,
+    },
   });
 }
 
@@ -361,7 +368,7 @@ const STATIC_CONTENT = {
 <p>Interface strings are translated into ${LOCALES.length} languages. Plugin descriptions are published in English and Chinese; in other languages the description is machine-translated and labelled as such.</p>`,
   },
   privacy: {
-    title: 'Privacy',
+    title: 'Privacy policy',
     body: () => `<h1>Privacy</h1>
 <p class="lead">This catalog is a static-content site. It does not require accounts and does not set advertising cookies.</p>
 <h2>What is collected</h2>
@@ -372,7 +379,7 @@ const STATIC_CONTENT = {
 <p>Plugin pages link to GitHub, npm and author websites. Following such a link places you under that site's privacy policy.</p>`,
   },
   terms: {
-    title: 'Terms',
+    title: 'Terms of use',
     body: (locale) => `<h1>Terms</h1>
 <h2>Scope</h2>
 <p>This site indexes third-party artifacts. Listing is not endorsement: plugins are community code and are installed at your own risk.</p>
@@ -384,7 +391,7 @@ const STATIC_CONTENT = {
 <p>The catalog is refreshed daily from the upstream registry.</p>`,
   },
   cookies: {
-    title: 'Cookies',
+    title: 'Cookies and local storage',
     body: () => `<h1>Cookies</h1>
 <p class="lead">No cookies are set for tracking or advertising.</p>
 <p>The only client-side storage used is <code>localStorage</code>, holding the light/dark theme choice. It contains no identifier and is never transmitted.</p>
