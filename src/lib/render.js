@@ -104,6 +104,14 @@ export function renderHome(locale) {
         url: SITE + '/',
         description: 'Catalog of DeepSeek Harness plugins and ecosystem artifacts.',
         inLanguage: LOCALES.map((l) => l.code),
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: SITE + '/search/?q={search_term_string}',
+          },
+          'query-input': 'required name=search_term_string',
+        },
       },
       {
         '@context': 'https://schema.org',
@@ -111,6 +119,12 @@ export function renderHome(locale) {
         name: 'DSH Harness Ecosystem Catalog',
         url: SITE + '/',
         logo: SITE + '/og-default.png',
+        sameAs: [
+          'https://github.com/homgorn/harness-market-ds',
+          'https://dshmarket.com',
+          'https://awesome-dsh-plugin.com',
+          'https://dshget.com',
+        ],
       },
     ],
   });
@@ -144,12 +158,26 @@ export function renderListing({ locale, type, value, page = 1, query = {} }) {
 ${listingBody({ locale, items: pg.items, page: pg.page, pages: pg.pages, total: pg.total, basePath, query })}
 <details><summary>${esc(t(locale, 'filters'))}</summary>${facetsBody({ locale })}</details>`;
 
+  const firstPos = (pg.page - 1) * PER_PAGE + 1;
+  const itemList = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: title,
+    numberOfItems: pg.total,
+    itemListOrder: 'Descending',
+    itemListElement: pg.items.map((it, i) => ({
+      '@type': 'ListItem',
+      position: firstPos + i,
+      url: SITE + prefix(locale) + '/p/' + it.s + '/',
+      name: it.n,
+    })),
+  };
   const jsonLd = [
     {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-    title: `${title.slice(0, 46)} - DSH Catalog`.slice(0, 60),
-    description: `Browse ${pg.total} DeepSeek Harness ${type} artifacts for "${value.slice(0, 40)}". Filter by category, capability, risk. Updated daily from the community registry.`.slice(0, 158),
+      name: title,
+      description: `Collection of ${pg.total} DeepSeek Harness artifacts in ${type} "${value}". Updated daily from the community registry.`,
       url: SITE + path,
     },
     {
@@ -160,6 +188,7 @@ ${listingBody({ locale, items: pg.items, page: pg.page, pages: pg.pages, total: 
         { '@type': 'ListItem', position: 2, name: title, item: SITE + path },
       ],
     },
+    itemList,
   ];
 
   return render({

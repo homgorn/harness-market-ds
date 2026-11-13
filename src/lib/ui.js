@@ -222,6 +222,7 @@ export function html(o) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 ${o.keywords ? `<meta name="keywords" content="${esc(o.keywords)}">` : ''}
@@ -412,6 +413,7 @@ export function pager(base, page, totalPages, locale) {
 
 /** JSON-LD for a plugin page. */
 export function pluginJsonLd(p, locale, url) {
+  const np = p.np || '';
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
@@ -423,5 +425,7 @@ export function pluginJsonLd(p, locale, url) {
     softwareVersion: p.v || undefined,
     author: p.o ? { '@type': 'Person', name: p.o } : undefined,
     inLanguage: locale,
+    sameAs: [p.u, np ? `https://www.npmjs.com/package/${np}` : null].filter(Boolean),
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
   };
 }
