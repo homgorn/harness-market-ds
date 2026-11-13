@@ -35,9 +35,14 @@ jobs:
             echo 'Derived catalog present; skipping sync'
           fi
       - run: pnpm run build
-      - name: Deploy to Cloudflare Pages
+      # The live site is served as a Worker with static assets
+      # (wrangler.jsonc, assets.directory=dist), not as a Pages project.
+      # Deploy with `wrangler deploy` so CI updates the same
+      # `harness-market-ds` Worker the public URL serves.
+      # To ship via Pages instead, use: pages deploy dist --project-name=harness-market-ds
+      - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=harness-market-ds
+          command: deploy
