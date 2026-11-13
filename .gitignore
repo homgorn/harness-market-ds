@@ -33,8 +33,10 @@ Thumbs.db
 *.db
 *.sqlite
 
-# generated catalog data — reproducible via `npm run sync`
-# (see scripts/sync-catalog-v2.mjs → build-site-data → build-ssr-data)
+# generated catalog data — the files CI needs are committed
+# (catalog.ssr.json, buckets.json, ranks.json, related.json) so a fresh
+# checkout builds without re-syncing; the remaining heavy intermediates
+# are reproducible via `npm run sync` and stay out of git.
 data/raw/
 data/snapshots/
 data/npm-cache/
@@ -42,11 +44,7 @@ data/i18n-cache/
 data/awesome-plugins.json
 data/dshget-catalog.json
 data/catalog-v2.json
-data/catalog.ssr.json
 data/site.json
-data/buckets.json
-data/ranks.json
-data/related.json
 data/tags.json
 data/categories.json
 data/owners.json
