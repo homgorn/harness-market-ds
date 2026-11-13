@@ -15,24 +15,26 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.5.1
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: npm
-      - run: npm ci
-      # Fresh checkouts lack the gitignored derived catalog
-      # (data/catalog.ssr.json and friends). Regenerate them from the CDN
-      # sources so the build can succeed; this makes the deploy hermetic
-      # even without committing generated artifacts to the repository.
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      # The derived catalog that the build imports
+      # (data/catalog.ssr.json, buckets.json, ranks.json, related.json) is
+      # committed to the repository; if it is missing, regenerate from the CDN.
       - name: Prepare derived catalog (sync if missing)
         run: |
           if [ ! -f data/catalog.ssr.json ]; then
-            echo 'Derived catalog missing; running npm run sync'
-            npm run sync
+            echo 'Derived catalog missing; running pnpm run sync'
+            pnpm run sync
           else
             echo 'Derived catalog present; skipping sync'
           fi
-      - run: npm run build
+      - run: pnpm run build
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
