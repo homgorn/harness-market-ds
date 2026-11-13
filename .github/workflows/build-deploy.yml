@@ -5,15 +5,33 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: build-deploy-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: npm
       - run: npm ci
+      # Fresh checkouts lack the gitignored derived catalog
+      # (data/catalog.ssr.json and friends). Regenerate them from the CDN
+      # sources so the build can succeed; this makes the deploy hermetic
+      # even without committing generated artifacts to the repository.
+      - name: Prepare derived catalog (sync if missing)
+        run: |
+          if [ ! -f data/catalog.ssr.json ]; then
+            echo 'Derived catalog missing; running npm run sync'
+            npm run sync
+          else
+            echo 'Derived catalog present; skipping sync'
+          fi
       - run: npm run build
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
